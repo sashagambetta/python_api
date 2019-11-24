@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Okt 2019 pada 18.44
--- Versi server: 10.3.16-MariaDB
--- Versi PHP: 7.3.7
+-- Generation Time: Nov 24, 2019 at 03:43 PM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `playlist`
+-- Table structure for table `artists`
+--
+
+CREATE TABLE `artists` (
+  `artistsID` int(30) NOT NULL,
+  `artistsName` varchar(255) NOT NULL,
+  `songsID` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `artists`
+--
+
+INSERT INTO `artists` (`artistsID`, `artistsName`, `songsID`) VALUES
+(1, 'Sheila On 7', 2),
+(2, '88rising', 3),
+(3, 'NIKI', 3),
+(4, 'Rich Brian', 3),
+(5, 'Beyoncé', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `playlist`
 --
 
 CREATE TABLE `playlist` (
@@ -34,16 +57,17 @@ CREATE TABLE `playlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `playlist`
+-- Dumping data for table `playlist`
 --
 
 INSERT INTO `playlist` (`playlistID`, `playlistName`) VALUES
-(1, 'testing');
+(1, 'testing'),
+(2, 'Indonesia');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tracks`
+-- Table structure for table `tracks`
 --
 
 CREATE TABLE `tracks` (
@@ -55,43 +79,76 @@ CREATE TABLE `tracks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tracks`
+-- Dumping data for table `tracks`
 --
 
 INSERT INTO `tracks` (`songsID`, `songsName`, `songsArtist`, `songsURL`, `playlistID`) VALUES
-(1, 'eyak', 'cjr', 'hai.com', 1);
+(1, 'eyak', 'cjr', 'hai.com', 1),
+(2, 'Dan...', '', 'spotify:track:1MdjZzEInrmDBXf8zs0nKS', 2),
+(3, 'Shouldn\'t Couldn\'t Wouldn\'t', '', 'spotify:track:16ox7ZM0ozbzBOTjFecYuY', 2),
+(4, 'Halo', '', 'spotify:track:4JehYebiI9JE8sR8MisGVb', 2);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `playlist`
+-- Indexes for table `artists`
+--
+ALTER TABLE `artists`
+  ADD PRIMARY KEY (`artistsID`),
+  ADD KEY `songsID` (`songsID`);
+
+--
+-- Indexes for table `playlist`
 --
 ALTER TABLE `playlist`
   ADD PRIMARY KEY (`playlistID`);
 
 --
--- Indeks untuk tabel `tracks`
+-- Indexes for table `tracks`
 --
 ALTER TABLE `tracks`
-  ADD PRIMARY KEY (`songsID`);
+  ADD PRIMARY KEY (`songsID`),
+  ADD KEY `playlistID` (`playlistID`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `playlist`
+-- AUTO_INCREMENT for table `artists`
+--
+ALTER TABLE `artists`
+  MODIFY `artistsID` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `playlist`
 --
 ALTER TABLE `playlist`
-  MODIFY `playlistID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `playlistID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `tracks`
+-- AUTO_INCREMENT for table `tracks`
 --
 ALTER TABLE `tracks`
-  MODIFY `songsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `songsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `artists`
+--
+ALTER TABLE `artists`
+  ADD CONSTRAINT `artists_ibfk_1` FOREIGN KEY (`songsID`) REFERENCES `tracks` (`songsID`);
+
+--
+-- Constraints for table `tracks`
+--
+ALTER TABLE `tracks`
+  ADD CONSTRAINT `tracks_ibfk_1` FOREIGN KEY (`playlistID`) REFERENCES `playlist` (`playlistID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
