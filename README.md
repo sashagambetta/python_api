@@ -8,8 +8,14 @@ API yang akan dibuat adalah API yang memberikan layanan
 pencatatan playlist yang terintegrasi dengan data lagu yang terdapat pada spotify. API dapat menghasilkan chart tiap artis berupa jumlah lagu yang dimasukkan dari seluruh playlist.
 
 ## Penggunaan
-Melakukan ubah konfigurasi database MYSQL anda pada :
+Lakukan download module berikut
+```
+pip install spotipy
+pip install flask
+pip install flask-mysql
+```
 
+Melakukan ubah konfigurasi database MYSQL anda pada :
 ```
 app.config['MYSQL_DATABASE_USER'] = '{username Anda}'
 app.config['MYSQL_DATABASE_PASSWORD'] = '{password Anda}'
